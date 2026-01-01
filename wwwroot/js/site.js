@@ -1,19 +1,4 @@
-﻿// Mobile Menu Toggle
-document.addEventListener('DOMContentLoaded', () => {
-    const navToggle = document.getElementById('navToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
+﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
 
-    if (navToggle && mobileMenu) {
-        navToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-            // Animate hamburger if desired (optional lines rotation)
-        });
-        
-        // Close menu when clicking a link
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-            });
-        });
-    }
-});
+// Write your JavaScript code.

@@ -1,46 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="hero-section">
-    <div class="hero-bg-blob"></div>
-    <div class="container text-center hero-content">
-        <div class="badge-pill">New: AI-Powered Scheduling</div>
-        <h1 class="hero-title text-gradient">Manage Your Team with Precision</h1>
-        <p class="hero-lead">
-            The all-in-one solution for calendars, workers, and departments. Simplify workforce management today with our intuitive platform.
-        </p>
-        <div class="hero-cta" style="display:flex; gap:1rem; justify-content:center; margin-top:2rem;">
-            <a href="#contact" class="btn btn-primary cta-large">Start Free Trial</a>
-            <a href="#learn-more" class="btn btn-secondary cta-large">Learn More</a>
-        </div>
+<div class="hero">
+    <div class="container hero-content">
+        <h1>Manage Your Team with Ease</h1>
+        <p>The all-in-one solution for calendars, workers, and departments. Simplify workforce management today.</p>
+        <a href="#contact" class="btn-primary">Start for Free</a>
     </div>
 </div>
 
-<div id="features" class="section-features">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2>Solutions for <span class="text-gradient">Modern Teams</span></h2>
-            <p>Everything you need to orchestrate your workforce.</p>
+<div id="features" class="container features-section">
+    <div class="text-center mb-5">
+        <h2>Solutions for Modern Teams</h2>
+        <p>Everything you need to orchestrate your workforce.</p>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Smart Calendar</h3>
+            <p>Effortlessly schedule shifts, manage time-off, and synchronize team events in one view.</p>
         </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="icon-box">📅</div>
-                <h3 class="feature-title">Smart Calendar</h3>
-                <p>Effortlessly schedule shifts, manage time-off, and synchronize team events in one view.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box">👥</div>
-                <h3 class="feature-title">Employee Hub</h3>
-                <p>Centralize worker profiles, skills, and performance data for easy access and management.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box">🏢</div>
-                <h3 class="feature-title">Department Sync</h3>
-                <p>Align teams and departments with clear hierarchy and cross-functional visibility.</p>
-            </div>
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>Employee Hub</h3>
+            <p>Centralize worker profiles, skills, and performance data for easy access and management.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🏢</div>
+            <h3>Department Sync</h3>
+            <p>Align teams and departments with clear hierarchy and cross-functional visibility.</p>
         </div>
     </div>
 </div>
@@ -48,7 +38,8 @@
 <div class="cta-section">
     <div class="container">
         <h2>Ready to Organize Your Workspace?</h2>
-        <p class="mb-4">Join thousands of teams already working smarter.</p>
-        <a href="#" class="btn btn-primary">Get Started Now</a>
+        <a href="#" class="btn-primary">Get Started Now</a>
     </div>
 </div>
+
+
