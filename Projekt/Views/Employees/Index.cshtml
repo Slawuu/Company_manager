@@ -1,0 +1,149 @@
+@model IEnumerable<Projekt.Models.EmployeeWithRoleViewModel>
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<div class="neo-card" style="margin-bottom: 2rem; padding: 4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem;">
+        <h1 style="margin: 0;">
+             Employees
+        </h1>
+        @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+        {
+            <a asp-action="Create" class="neo-btn">
+                <i class="bi bi-plus-lg" style="font-size: 1.5rem; margin-right: 0.5rem;"></i> Add Employee
+            </a>
+        }
+    </div>
+
+    @if (ViewBag.IsRestrictedView == true)
+    {
+        <div style="background: rgba(29, 120, 159, 0.05); padding: 1.5rem 2rem; border-radius: 16px; border: 1px solid rgba(29, 120, 159, 0.2); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem;">
+            <i class="bi bi-info-circle-fill" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+            @if (ViewBag.NoDepartmentAssigned == true)
+            {
+                <p style="margin: 0; font-weight: 600; color: #ef4444;">
+                    You are not assigned to any department yet. Please contact your administrator.
+                </p>
+            }
+            else
+            {
+                <p style="margin: 0; font-weight: 600;">
+                    You are viewing employees from <strong>@ViewBag.CurrentDepartmentName</strong> department.
+                </p>
+            }
+        </div>
+    }
+
+    <form method="get" style="margin-bottom: 4rem; background: #F8FAFC; padding: 2.5rem; border-radius: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+            <div>
+                <label class="neo-form-label">Search Name</label>
+                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="neo-input" placeholder="Search by name..." />
+            </div>
+            @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Manager"))
+            {
+                <div>
+                    <label class="neo-form-label">Department</label>
+                    <select name="departmentId" class="neo-input">
+                        <option value="">All Departments</option>
+                        @foreach (var dept in ViewBag.Departments as SelectList)
+                        {
+                            <option value="@dept.Value" selected="@(dept.Value == ViewData["DepartmentFilter"]?.ToString())">@dept.Text</option>
+                        }
+                    </select>
+                </div>
+            }
+            <div>
+                <label class="neo-form-label">Position</label>
+                <select name="position" class="neo-input">
+                    <option value="">All Positions</option>
+                    @foreach (var pos in ViewBag.Positions as List<string>)
+                    {
+                        <option value="@pos" selected="@(pos == ViewData["PositionFilter"]?.ToString())">@pos</option>
+                    }
+                </select>
+            </div>
+            <div style="display: flex; align-items: flex-end;">
+                <button type="submit" class="neo-btn" style="width: 100%; background: #0f172a;">
+                    <i class="bi bi-search" style="margin-right: 0.5rem; font-size: 1.2rem;"></i> Filter
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div style="overflow-x: auto;">
+        <table class="neo-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>System Role</th>
+                    <th>Hire Date</th>
+                    @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Manager"))
+                    {
+                        <th>Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="font-weight: 800; color: var(--color-text-main);">@item.Employee.FirstName @item.Employee.LastName</td>
+                        <td>@item.Employee.Email</td>
+                        <td>@item.Employee.Position</td>
+                        <td>@item.Employee.Department?.Name</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Role))
+                            {
+                                if (item.Role == "Admin")
+                                {
+                                    <span class="neo-badge neo-badge-admin">@item.Role</span>
+                                }
+                                else if (item.Role == "HR")
+                                {
+                                    <span class="neo-badge" style="background: var(--neo-purple);">@item.Role</span>
+                                }
+                                else if (item.Role == "Manager")
+                                {
+                                    <span class="neo-badge" style="background: var(--neo-blue);">@item.Role</span>
+                                }
+                                else
+                                {
+                                    <span class="neo-badge neo-badge-user">@item.Role</span>
+                                }
+                            }
+                            else
+                            {
+                                <span style="color: var(--color-text-muted); font-size: 0.85rem;">No Account</span>
+                            }
+                        </td>
+                        <td>@item.Employee.HireDate.ToString("MMM dd, yyyy")</td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Manager"))
+                        {
+                            <td>
+                                <div style="display: flex; gap: 0.75rem;">
+                                    <a asp-action="Details" asp-route-id="@item.Employee.Id" title="View Details" style="color: var(--color-primary); font-size: 1.5rem;">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Employee.Id" title="Edit Employee" style="color: #f59e0b; font-size: 1.5rem;">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Employee.Id" title="Delete Employee" style="color: #ef4444; font-size: 1.5rem;">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

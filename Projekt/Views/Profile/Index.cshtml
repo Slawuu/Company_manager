@@ -1,0 +1,139 @@
+@model Projekt.Models.Employee
+@{
+    ViewData["Title"] = "My Profile";
+    var userRole = ViewBag.UserRole as string;
+}
+
+<div class="neo-card" style="margin-bottom: 3rem; padding: 4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+        <div>
+            <h1 style="margin: 0;">My Profile</h1>
+            <p style="color: var(--color-text-muted); font-size: 1.1rem; font-weight: 500; margin-top: 0.5rem;">
+                Welcome back, @Model.FirstName
+            </p>
+        </div>
+        <a asp-action="Edit" class="neo-btn">
+            Edit Contact Info
+        </a>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+    <div class="neo-card" style="padding: 3rem;">
+        <h3 style="margin-bottom: 2rem;">Personal Information</h3>
+        <div style="display: grid; gap: 2rem;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 1rem;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Full Name</span>
+                <span style="font-weight: 800;">@Model.FirstName @Model.LastName</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 1rem;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Email</span>
+                <span style="font-weight: 800;">@Model.Email</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 1rem;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Phone</span>
+                <span style="font-weight: 800;">@(Model.PhoneNumber ?? "Not provided")</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Role</span>
+                <span class="neo-badge" style="padding: 0.5rem 1rem;">@userRole</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="neo-card" style="padding: 3rem;">
+        <h3 style="margin-bottom: 2rem;">Employment Details</h3>
+        <div style="display: grid; gap: 2rem;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 1rem;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Position</span>
+                <span style="font-weight: 800;">@Model.Position</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 1rem;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Department</span>
+                <span style="font-weight: 800;">@(Model.Department?.Name ?? "Not assigned")</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 1rem;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Hire Date</span>
+                <span style="font-weight: 800;">@Model.HireDate.ToString("MMMM dd, yyyy")</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--color-text-muted); font-weight: 600;">Tenure</span>
+                <span style="font-weight: 800;">@((DateTime.Now - Model.HireDate).Days / 365) years</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="neo-card" style="padding: 4rem; margin-bottom: 3rem;">
+    <h2 style="margin-bottom: 3rem;">Current Projects (@Model.EmployeeProjects.Count)</h2>
+
+    @if (Model.EmployeeProjects.Any())
+    {
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+            @foreach (var ep in Model.EmployeeProjects)
+            {
+                <div style="background: #F8FAFC; border-radius: 24px; padding: 2.5rem; border: 1px solid #E2E8F0; transition: transform 0.2s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <h4 style="margin-bottom: 1rem; color: var(--color-primary);">@ep.Project.Name</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 2rem; color: var(--color-text-muted); line-height: 1.5;">@(ep.Project.Description ?? "No description provided for this project.")</p>
+                    <div style="display: grid; gap: 0.75rem; font-size: 0.9rem; font-weight: 700;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <i class="bi bi-calendar-event" style="color: var(--color-primary);"></i>
+                            <span>Started: @ep.Project.StartDate.ToString("MMM dd, yyyy")</span>
+                        </div>
+                        @if (ep.Project.EndDate.HasValue)
+                        {
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="bi bi-calendar-check" style="color: #ef4444;"></i>
+                                <span>Ends: @ep.Project.EndDate.Value.ToString("MMM dd, yyyy")</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="text-align: center; padding: 4rem; background: #F8FAFC; border-radius: 24px;">
+            <i class="bi bi-inbox" style="font-size: 3rem; color: #CBD5E1; display: block; margin-bottom: 1rem;"></i>
+            <p style="font-weight: 700; color: var(--color-text-muted);">No active projects assigned.</p>
+        </div>
+    }
+</div>
+
+<div class="neo-card" style="padding: 4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+        <h2>Leave Requests</h2>
+        <a asp-controller="LeaveRequests" asp-action="Create" class="neo-btn">
+            New Request
+        </a>
+    </div>
+
+    @if (Model.LeaveRequests.Any())
+    {
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <div style="background: #F8FAFC; padding: 2rem; border-radius: 24px; text-align: center;">
+                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--color-text-main);">@Model.LeaveRequests.Count</span>
+                <span style="font-weight: 700; color: var(--color-text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Requests</span>
+            </div>
+            <div style="background: rgba(29, 120, 159, 0.05); padding: 2rem; border-radius: 24px; text-align: center;">
+                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--color-primary);">@Model.LeaveRequests.Count(lr => lr.Status == Projekt.Models.LeaveRequestStatus.Pending)</span>
+                <span style="font-weight: 700; color: var(--color-text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Pending Approval</span>
+            </div>
+            <div style="background: rgba(34, 197, 94, 0.05); padding: 2rem; border-radius: 24px; text-align: center;">
+                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: #22c55e;">@Model.LeaveRequests.Count(lr => lr.Status == Projekt.Models.LeaveRequestStatus.Approved)</span>
+                <span style="font-weight: 700; color: var(--color-text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Approved Days</span>
+            </div>
+        </div>
+
+        <a asp-controller="LeaveRequests" asp-action="Index" class="neo-btn" style="width: 100%; height: 64px; background: #0f172a;">
+            View Full History
+        </a>
+    }
+    else
+    {
+        <div style="text-align: center; padding: 4rem; background: #F8FAFC; border-radius: 24px;">
+            <p style="font-weight: 700; color: var(--color-text-muted);">No leave requests submitted yet.</p>
+        </div>
+    }
+</div>

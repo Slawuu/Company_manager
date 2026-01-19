@@ -1,0 +1,40 @@
+@model Projekt.Models.LeaveRequest
+@{
+    ViewData["Title"] = "Review Leave Request";
+}
+
+<div class="neo-card" style="max-width: 700px; margin: 0 auto;">
+    <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 2rem;">
+        <i class="bi bi-clipboard-check-fill"></i> Review Leave Request
+    </h1>
+
+    <div style="background: var(--neo-blue); padding: 2rem; border: 4px solid var(--neo-black); box-shadow: 4px 4px 0px var(--neo-black); margin-bottom: 2rem;">
+        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Employee:</strong> @Model.Employee.FirstName @Model.Employee.LastName</p>
+        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Leave Type:</strong> @Model.LeaveType</p>
+        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Start Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy")</p>
+        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>End Date:</strong> @Model.EndDate.ToString("MMMM dd, yyyy")</p>
+        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Duration:</strong> @((Model.EndDate - Model.StartDate).Days + 1) days</p>
+        <p style="margin-bottom: 0; font-weight: 700;"><strong>Reason:</strong> @(Model.Reason ?? "No reason provided")</p>
+    </div>
+
+    <form asp-action="Approve" method="post">
+        <input type="hidden" asp-for="Id" />
+        
+        <div class="neo-form-group">
+            <label for="comments" class="neo-form-label">Comments</label>
+            <textarea name="comments" class="neo-input" rows="3" placeholder="Optional comments..."></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+            <button type="submit" class="neo-btn neo-btn-success" style="width: 100%;">
+                <i class="bi bi-check-circle"></i> Approve
+            </button>
+            <button type="submit" asp-action="Reject" class="neo-btn neo-btn-danger" style="width: 100%;">
+                <i class="bi bi-x-circle"></i> Reject
+            </button>
+            <a asp-action="Index" class="neo-btn" style="width: 100%; text-align: center; background: var(--neo-white);">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

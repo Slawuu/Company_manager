@@ -1,0 +1,70 @@
+@model Projekt.Models.LeaveRequest
+@{
+    ViewData["Title"] = "Submit Leave Request";
+}
+
+<div class="neo-card" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 2rem;">
+        <i class="bi bi-calendar-plus-fill"></i> Submit Leave Request
+    </h1>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger" style="padding: 1rem; border: 4px solid var(--neo-red); background: #FFE5E8; font-weight: 700; margin-bottom: 1.5rem;"></div>
+
+        @if (User.IsInRole("Admin") || User.IsInRole("HR"))
+        {
+            <div class="neo-form-group">
+                <label asp-for="EmployeeId" class="neo-form-label">Employee</label>
+                <select asp-for="EmployeeId" class="neo-input" asp-items="ViewBag.EmployeeId">
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+        }
+
+        <div class="neo-form-group">
+            <label asp-for="LeaveType" class="neo-form-label"></label>
+            <select asp-for="LeaveType" class="neo-input">
+                <option value="">-- Select Leave Type --</option>
+                <option value="Vacation">Vacation</option>
+                <option value="Sick Leave">Sick Leave</option>
+                <option value="Personal">Personal</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="LeaveType" class="text-danger"></span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="neo-form-group">
+                <label asp-for="StartDate" class="neo-form-label"></label>
+                <input asp-for="StartDate" class="neo-input" type="date" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="neo-form-group">
+                <label asp-for="EndDate" class="neo-form-label"></label>
+                <input asp-for="EndDate" class="neo-input" type="date" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="neo-form-group">
+            <label asp-for="Reason" class="neo-form-label"></label>
+            <textarea asp-for="Reason" class="neo-input" rows="4"></textarea>
+            <span asp-validation-for="Reason" class="text-danger"></span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+            <button type="submit" class="neo-btn neo-btn-success" style="width: 100%;">
+                <i class="bi bi-check-circle"></i> Submit Request
+            </button>
+            <a asp-action="Index" class="neo-btn neo-btn-danger" style="width: 100%; text-align: center;">
+                <i class="bi bi-x-circle"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

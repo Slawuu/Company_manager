@@ -1,0 +1,42 @@
+@model Projekt.Models.Employee
+@{
+    ViewData["Title"] = "Delete Employee";
+}
+
+<div class="neo-card" style="max-width: 600px; margin: 0 auto; background: var(--neo-red); color: var(--neo-white);">
+    <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; text-align: center;">
+        <i class="bi bi-exclamation-triangle-fill"></i><br />
+        Delete Employee
+    </h1>
+    
+    <div style="background: var(--neo-white); color: var(--neo-black); padding: 2rem; border: 4px solid var(--neo-black); margin: 2rem 0;">
+        <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 1rem;">
+            Are you sure you want to delete this employee?
+        </h3>
+        
+        <div style="margin: 1.5rem 0;">
+            <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Name:</strong> @Model.FirstName @Model.LastName</p>
+            <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Email:</strong> @Model.Email</p>
+            <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Position:</strong> @Model.Position</p>
+            <p style="margin-bottom: 0; font-weight: 700;"><strong>Department:</strong> @Model.Department?.Name</p>
+        </div>
+
+        <div style="background: var(--neo-yellow); padding: 1rem; border: 3px solid var(--neo-black); margin-top: 1rem;">
+            <p style="margin: 0; font-weight: 900;">
+                ⚠️ This action cannot be undone!
+            </p>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <button type="submit" class="neo-btn" style="width: 100%; background: var(--neo-black); color: var(--neo-white);">
+                <i class="bi bi-trash-fill"></i> Yes, Delete
+            </button>
+            <a asp-action="Index" class="neo-btn" style="width: 100%; text-align: center; background: var(--neo-white); color: var(--neo-black);">
+                <i class="bi bi-x-circle"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,56 @@
+﻿@model Projekt.Models.CreateUserModel
+@{
+    ViewData["Title"] = "Create New User";
+}
+
+<div class="neo-card" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; text-align: center;">
+        <i class="bi bi-person-plus-fill"></i> Create User
+    </h1>
+    <p style="text-align: center; font-weight: 700; margin-bottom: 2rem; text-transform: uppercase;">
+        Fill in the details to create a new account
+    </p>
+
+    <form method="post" asp-action="CreateUser">
+        <div asp-validation-summary="All" class="text-danger mb-3" style="padding: 1rem; border: 4px solid #FF4757; background: #FFE5E8; font-weight: 700;"></div>
+
+        <div class="neo-form-group">
+            <label asp-for="Email" class="neo-form-label">
+                <i class="bi bi-envelope-fill"></i> Email
+            </label>
+            <input asp-for="Email" class="neo-input" placeholder="Enter email address" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="neo-form-group">
+            <label asp-for="Password" class="neo-form-label">
+                <i class="bi bi-lock-fill"></i> Password
+            </label>
+            <input asp-for="Password" class="neo-input" type="password" placeholder="Enter password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="neo-form-group">
+            <label asp-for="Role" class="neo-form-label">
+                <i class="bi bi-shield-fill"></i> Role
+            </label>
+            <select asp-for="Role" asp-items="@(ViewBag.RoleList as IEnumerable<SelectListItem>)" class="neo-input">
+                <option disabled selected>-- Select Role --</option>
+            </select>
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <div style="display: grid; gap: 1rem; margin-top: 2rem;">
+            <button type="submit" class="neo-btn neo-btn-success" style="width: 100%; justify-content: center;">
+                <i class="bi bi-check-circle-fill"></i> Create Account
+            </button>
+            <a asp-action="Index" class="neo-btn neo-btn-danger" style="width: 100%; text-align: center;">
+                <i class="bi bi-x-circle-fill"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,67 @@
+@model Projekt.Models.Department
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+<div class="neo-card" style="max-width: 900px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin: 0;">
+            <i class="bi bi-building"></i> @Model.Name
+        </h1>
+        <a asp-action="Index" class="neo-btn" style="background: var(--neo-white);">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <div style="background: var(--neo-blue); padding: 2rem; border: 4px solid var(--neo-black); box-shadow: 6px 6px 0px var(--neo-black); margin-bottom: 2rem;">
+        <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 1rem;">Description</h3>
+        <p style="margin: 0; font-weight: 700;">@(Model.Description ?? "No description provided.")</p>
+    </div>
+
+    @if (Model.Employees.Any())
+    {
+        <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; font-size: 1.5rem;">
+            <i class="bi bi-people-fill"></i> Employees (@Model.Employees.Count)
+        </h3>
+        <div style="overflow-x: auto;">
+            <table class="neo-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Email</th>
+                        <th>Hire Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var emp in Model.Employees)
+                    {
+                        <tr>
+                            <td style="font-weight: 700;">@emp.FirstName @emp.LastName</td>
+                            <td>@emp.Position</td>
+                            <td>@emp.Email</td>
+                            <td>@emp.HireDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div style="background: var(--neo-yellow); padding: 2rem; border: 4px solid var(--neo-black); text-align: center;">
+            <p style="margin: 0; font-weight: 900; font-size: 1.25rem;">
+                <i class="bi bi-info-circle-fill"></i> No employees in this department yet.
+            </p>
+        </div>
+    }
+
+    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="neo-btn" style="background: var(--neo-yellow);">
+            <i class="bi bi-pencil-fill"></i> Edit
+        </a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="neo-btn neo-btn-danger">
+            <i class="bi bi-trash-fill"></i> Delete
+        </a>
+    </div>
+</div>

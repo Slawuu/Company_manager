@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Reports Dashboard";
+}
+
+<div class="neo-card" style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 2rem;">
+        <i class="bi bi-file-earmark-bar-graph-fill"></i> Reports Dashboard
+    </h1>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <a asp-action="EmployeesByDepartment" style="text-decoration: none; color: var(--neo-black);">
+            <div class="neo-card neo-hover-lift" style="background: var(--neo-yellow); text-align: center; cursor: pointer;">
+                <i class="bi bi-building" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
+                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Employees by Department</h3>
+                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">View employee distribution across departments</p>
+            </div>
+        </a>
+
+        <a asp-action="HiredInPeriod" style="text-decoration: none; color: var(--neo-black);">
+            <div class="neo-card neo-hover-lift" style="background: var(--neo-green); text-align: center; cursor: pointer;">
+                <i class="bi bi-calendar-range" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
+                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Hired in Period</h3>
+                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">See employees hired within a date range</p>
+            </div>
+        </a>
+
+        <a asp-action="ProjectsSummary" style="text-decoration: none; color: var(--neo-black);">
+            <div class="neo-card neo-hover-lift" style="background: var(--neo-blue); text-align: center; cursor: pointer;">
+                <i class="bi bi-kanban" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
+                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Projects Summary</h3>
+                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">Overview of all projects and team members</p>
+            </div>
+        </a>
+
+        <a asp-action="LeaveRequestsSummary" style="text-decoration: none; color: var(--neo-black);">
+            <div class="neo-card neo-hover-lift" style="background: var(--neo-pink); text-align: center; cursor: pointer;">
+                <i class="bi bi-calendar-check" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
+                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Leave Requests</h3>
+                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">Summary of leave requests by status</p>
+            </div>
+        </a>
+    </div>
+</div>

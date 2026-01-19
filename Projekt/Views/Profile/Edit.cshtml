@@ -1,0 +1,65 @@
+@model Projekt.Models.EditProfileViewModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="neo-card" style="max-width: 640px; margin: 0 auto; padding: 4rem;">
+    <h1 style="margin-bottom: 3rem;">
+        Edit Profile
+    </h1>
+
+    <div style="background: rgba(29, 120, 159, 0.05); padding: 1.5rem 2rem; border-radius: 16px; border: 1px solid rgba(29, 120, 159, 0.2); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem;">
+        <i class="bi bi-info-circle-fill" style="font-size: 1.25rem; color: var(--color-primary);"></i>
+        <p style="margin: 0; font-weight: 600; font-size: 0.95rem;">
+            You can update your contact information. Other fields are managed by HR.
+        </p>
+    </div>
+
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="Id" />
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div class="neo-form-group">
+                <label class="neo-form-label">First Name</label>
+                <input type="text" value="@Model.FirstName" class="neo-input" disabled style="opacity: 0.5; background: #F1F5F9; cursor: not-allowed;" />
+            </div>
+
+            <div class="neo-form-group">
+                <label class="neo-form-label">Last Name</label>
+                <input type="text" value="@Model.LastName" class="neo-input" disabled style="opacity: 0.5; background: #F1F5F9; cursor: not-allowed;" />
+            </div>
+        </div>
+
+        <div class="neo-form-group" style="margin-bottom: 2rem;">
+            <label asp-for="Email" class="neo-form-label"></label>
+            <input asp-for="Email" class="neo-input" type="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="neo-form-group" style="margin-bottom: 2rem;">
+            <label asp-for="PhoneNumber" class="neo-form-label"></label>
+            <input asp-for="PhoneNumber" class="neo-input" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="neo-form-group" style="margin-bottom: 4rem;">
+            <label class="neo-form-label">Position</label>
+            <input type="text" value="@Model.Position" class="neo-input" disabled style="opacity: 0.5; background: #F1F5F9; cursor: not-allowed;" />
+        </div>
+
+        <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+            <button type="submit" class="neo-btn" style="flex: 2; height: 64px; font-size: 1.1rem;">
+                Save Changes
+            </button>
+            <a asp-action="Index" class="neo-btn neo-btn-danger" style="flex: 1; height: 64px; font-size: 1.1rem;">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,40 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="neo-card" style="background: var(--neo-red); color: var(--neo-white); text-align: center; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: 4rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem;">
+        <i class="bi bi-exclamation-triangle-fill"></i><br />
+        Oops!
+    </h1>
+    <h2 style="font-weight: 900; text-transform: uppercase; margin-bottom: 2rem; font-size: 1.5rem;">
+        An error occurred while processing your request
+    </h2>
+
+    @if (Model.ShowRequestId)
+    {
+        <div style="background: var(--neo-white); color: var(--neo-black); padding: 1rem; border: 4px solid var(--neo-black); margin: 2rem 0;">
+            <p style="margin: 0; font-weight: 700;">
+                <strong>Request ID:</strong> <code style="background: var(--neo-yellow); padding: 0.25rem 0.5rem; border: 2px solid var(--neo-black);">@Model.RequestId</code>
+            </p>
+        </div>
+    }
+
+    <a asp-controller="Home" asp-action="Index" class="neo-btn neo-btn-primary" style="margin-top: 2rem;">
+        <i class="bi bi-house-fill"></i> Go to Homepage
+    </a>
+</div>
+
+<div class="neo-card" style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 1rem;">
+        <i class="bi bi-info-circle-fill"></i> Development Mode
+    </h3>
+    <p style="font-weight: 700; margin-bottom: 1rem;">
+        Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+    </p>
+    <p style="font-weight: 700; margin-bottom: 0;">
+        <strong>⚠️ Warning:</strong> The Development environment shouldn't be enabled for deployed applications.
+        It can result in displaying sensitive information from exceptions to end users.
+    </p>
+</div>

@@ -1,0 +1,68 @@
+@model IEnumerable<Projekt.Models.LeaveRequest>
+@{
+    ViewData["Title"] = "Leave Requests";
+}
+
+<div class="neo-card" style="margin-bottom: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin: 0;">
+            <i class="bi bi-calendar-check-fill"></i> Leave Requests
+        </h1>
+        <a asp-action="Create" class="neo-btn neo-btn-primary">
+            <i class="bi bi-plus-circle"></i> New Request
+        </a>
+    </div>
+
+    <div style="overflow-x: auto;">
+        <table class="neo-table">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="font-weight: 700;">@item.Employee.FirstName @item.Employee.LastName</td>
+                        <td>@item.LeaveType</td>
+                        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            @if (item.Status == Projekt.Models.LeaveRequestStatus.Pending)
+                            {
+                                <span class="neo-badge" style="background: var(--neo-yellow);">Pending</span>
+                            }
+                            else if (item.Status == Projekt.Models.LeaveRequestStatus.Approved)
+                            {
+                                <span class="neo-badge neo-badge-user">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="neo-badge neo-badge-admin">Rejected</span>
+                            }
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                @if ((User.IsInRole("Admin") || User.IsInRole("Manager")) && item.Status == Projekt.Models.LeaveRequestStatus.Pending)
+                                {
+                                    <a asp-action="Approve" asp-route-id="@item.Id" class="neo-btn neo-btn-success" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                                        <i class="bi bi-check"></i> Review
+                                    </a>
+                                }
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="neo-btn neo-btn-danger" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

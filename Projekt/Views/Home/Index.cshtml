@@ -1,0 +1,278 @@
+﻿@{
+    ViewData["Title"] = "TechFlow Solutions - HR Management";
+    var userName = User.Identity?.Name;
+}
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <div class="neo-card" style="margin-bottom: 3rem; padding: 4rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <h1 style="margin: 0;">My Dashboard</h1>
+                <p style="color: var(--color-text-muted); font-size: 1.1rem; font-weight: 500; margin-top: 0.5rem;">
+                    Welcome back, @userName!
+                </p>
+            </div>
+            <a asp-controller="Profile" asp-action="Index" class="neo-btn">
+                My Profile
+            </a>
+        </div>
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <h2 style="margin-bottom: 2.5rem;">Quick Actions</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-bottom: 4rem;">
+            <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(29, 120, 159, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-people-fill" style="font-size: 2rem; color: var(--color-primary);"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">Human Resources</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">Manage employee records, roles, and system permissions.</p>
+                <a asp-controller="Employees" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px; font-size: 0.9rem;">
+                    Manage Team
+                </a>
+            </div>
+
+            <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(139, 92, 246, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-building" style="font-size: 2rem; color: #8b5cf6;"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">Departments</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">Organize company structure and manage departments.</p>
+                <a asp-controller="Departments" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px; font-size: 0.9rem;">
+                    Browse Departments
+                </a>
+            </div>
+
+            <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(16, 185, 129, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-kanban" style="font-size: 2rem; color: #10b981;"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">Project Hub</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">Monitor project timelines, assignments, and progress.</p>
+                <a asp-controller="Projects" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px; font-size: 0.9rem;">
+                    Launch Projects
+                </a>
+            </div>
+
+            <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(245, 158, 11, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-file-earmark-bar-graph" style="font-size: 2rem; color: #f59e0b;"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">Reports</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">Access analytics and automated reporting tools.</p>
+                <a asp-controller="Reports" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px; font-size: 0.9rem;">
+                    View Analytics
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2 style="margin-bottom: 2.5rem;">Quick Access</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+            <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(29, 120, 159, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-person-circle" style="font-size: 2rem; color: var(--color-primary);"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">My Profile</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">View your employment details and project history.</p>
+                <a asp-controller="Profile" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px;">
+                    Go to Profile
+                </a>
+            </div>
+
+            <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(16, 185, 129, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-calendar-check" style="font-size: 2rem; color: #10b981;"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">Leave Requests</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">Submit and track your time off requests.</p>
+                <a asp-controller="LeaveRequests" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px;">
+                    Manage Leave
+                </a>
+            </div>
+
+             <div class="neo-card" style="padding: 3rem;">
+                <div style="width: 64px; height: 64px; background: rgba(139, 92, 246, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                    <i class="bi bi-people" style="font-size: 2rem; color: #8b5cf6;"></i>
+                </div>
+                <h4 style="margin-bottom: 1rem;">Team Directory</h4>
+                <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">Connect with colleagues and view team members.</p>
+                <a asp-controller="Employees" asp-action="Index" class="neo-btn" style="width: 100%; height: 56px;">
+                    Team List
+                </a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="neo-card" style="margin-bottom: 5rem; padding: 8rem 4rem; text-align: center; background: #0f172a; color: white; overflow: hidden; position: relative;">
+        <div class="hero-abstract-pattern"></div>
+        <div class="hero-circuit-overlay"></div>
+        
+        <div style="position: relative; z-index: 1;">
+            <h1 style="color: white; margin-bottom: 1.5rem; font-size: 4.5rem; font-weight: 900; letter-spacing: -0.02em;">
+                TechFlow Solutions
+            </h1>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.4rem; max-width: 800px; margin: 0 auto 3rem auto; line-height: 1.6;">
+                Innovating the future of enterprise human resource management and project coordination.
+            </p>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                <a asp-area="Identity" asp-page="/Account/Login" class="neo-btn btn-gradient-blue" style="height: 72px; padding: 0 4rem; font-size: 1.25rem;">
+                    Get Started
+                </a>
+                <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; font-weight: 600;">
+                    Join 500+ leading companies globally.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="showcase-grid" style="margin-bottom: 5rem;">
+        <div class="showcase-card" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 2rem; color: var(--color-primary);">
+                <i class="bi bi-lightbulb"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem; font-weight: 800;">Innovate</h3>
+            <p style="color: var(--color-text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Architecting the future of business operations through intelligent automated systems.</p>
+            <div style="font-weight: 800; color: var(--color-primary); font-size: 0.9rem; text-transform: uppercase;">
+                Achieve 30% faster workflows
+            </div>
+        </div>
+
+        <div class="showcase-card" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 2rem; color: #8b5cf6;">
+                <i class="bi bi-people-fill"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem; font-weight: 800;">Collaborate</h3>
+            <p style="color: var(--color-text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Connecting global teams across 25+ countries with seamless real-time integration.</p>
+             <div style="font-weight: 800; color: #8b5cf6; font-size: 0.9rem; text-transform: uppercase;">
+                Scale team capacity by 2x
+            </div>
+        </div>
+
+        <div class="showcase-card" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 2rem; color: #10b981;">
+                <i class="bi bi-rocket-takeoff"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem; font-weight: 800;">Accelerate</h3>
+            <p style="color: var(--color-text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Pushing boundaries with cutting-edge AI and cloud infrastructure solutions.</p>
+             <div style="font-weight: 800; color: #10b981; font-size: 0.9rem; text-transform: uppercase;">
+                Reduce lead time by 45%
+            </div>
+        </div>
+    </div>
+
+    <div class="neo-card" style="background: #1e293b; color: white; padding: 5rem; margin-bottom: 5rem; overflow: hidden; position: relative;">
+        <div class="hero-abstract-pattern" style="opacity: 0.05;"></div>
+        
+        <div style="position: relative; z-index: 1;">
+            <h2 style="color: white; margin-bottom: 4rem; font-weight: 800; text-align: center;">Real-time Insights. Real-world Impact.</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                <div class="chart-container">
+                    <p style="font-weight: 600; margin-bottom: 1.5rem; opacity: 0.8;">Project Completion Rate</p>
+                    <div style="display: flex; align-items: baseline; gap: 1rem;">
+                        <span class="showcase-metric-value">75%</span>
+                        <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                            <div style="width: 75%; height: 100%; background: var(--color-primary); border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: #10b981; font-weight: 700;">
+                        <i class="bi bi-arrow-up"></i> +12% from last month
+                    </p>
+                </div>
+
+                <div class="chart-container">
+                    <p style="font-weight: 600; margin-bottom: 1.5rem; opacity: 0.8;">Team Productivity</p>
+                    <div class="bar-chart">
+                        <div class="bar-item" style="height: 60%;"></div>
+                        <div class="bar-item" style="height: 80%;"></div>
+                        <div class="bar-item" style="height: 40%;"></div>
+                        <div class="bar-item" style="height: 90%;"></div>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="display: flex; gap: 1.5rem; align-items: center;">
+                    <div class="donut-chart">
+                        <span class="donut-label">82%</span>
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; margin: 0; opacity: 0.8;">Efficiency Growth</p>
+                        <p style="font-size: 0.8rem; margin: 0.5rem 0 0 0; color: rgba(255,255,255,0.5);">Across all enterprise sectors.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 5rem; display: flex; justify-content: center; gap: 6rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4rem;">
+                <div style="text-align: center;">
+                    <h4 style="color: white; font-size: 3.5rem; font-weight: 800; margin-bottom: 0;">6080</h4>
+                    <p style="color: var(--color-primary); font-weight: 700; text-transform: uppercase; margin-top: 0.5rem;">New Users</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: white; font-size: 3.5rem; font-weight: 800; margin-bottom: 0;">20.00%</h4>
+                    <p style="color: #10b981; font-weight: 700; text-transform: uppercase; margin-top: 0.5rem;">Growth Rate</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: white; font-size: 3.5rem; font-weight: 800; margin-bottom: 0;">0.5%</h4>
+                    <p style="color: #ef4444; font-weight: 700; text-transform: uppercase; margin-top: 0.5rem;">Churn Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="neo-card" style="background: #0f172a; padding: 5rem 4rem; margin-bottom: 5rem;">
+        <h2 style="color: white; margin-bottom: 4rem; font-weight: 800; text-align: center;">Our Successful Engagements</h2>
+        
+        <div class="showcase-grid">
+            <div class="showcase-card" style="padding: 2rem;">
+                <div style="width: 100%; height: 160px; background: #F8FAFC; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; color: #CBD5E1; font-size: 3rem;">
+                    <i class="bi bi-window-sidebar"></i>
+                </div>
+                <h4 style="font-weight: 800; margin-bottom: 0.75rem;">Enterprise Portal</h4>
+                <p style="color: var(--color-text-muted); font-size: 0.95rem;">Revolutionizing global HR workflows for Fortune 500 partners.</p>
+            </div>
+
+            <div class="showcase-card" style="padding: 2rem;">
+                 <div style="width: 100%; height: 160px; background: #F8FAFC; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; color: #CBD5E1; font-size: 3rem;">
+                    <i class="bi bi-kanban"></i>
+                </div>
+                <h4 style="font-weight: 800; margin-bottom: 0.75rem;">TechFlow PM</h4>
+                <p style="color: var(--color-text-muted); font-size: 0.95rem;">Next-gen project management with real-time data sync.</p>
+            </div>
+
+            <div class="showcase-card" style="padding: 2rem;">
+                 <div style="width: 100%; height: 160px; background: #F8FAFC; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; color: #CBD5E1; font-size: 3rem;">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h4 style="font-weight: 800; margin-bottom: 0.75rem;">SecureID Dash</h4>
+                <p style="color: var(--color-text-muted); font-size: 0.95rem;">Zero-trust identity management for high-security environments.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 5rem; padding: 0 2rem;">
+        <h2 style="margin-bottom: 4rem; font-weight: 800;">Trusted by Industry Leaders</h2>
+        <div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; align-items: center; margin-bottom: 3rem;">
+            <div class="logo-placeholder">Acme Corp</div>
+            <div class="logo-placeholder">Globex Inc</div>
+            <div class="logo-placeholder">Soylent Corp</div>
+            <div class="logo-placeholder">Initech</div>
+        </div>
+        <p style="font-style: italic; font-size: 1.2rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+            "TechFlow transformed our workflow by 30%. The data-driven approach changed how we manage our human capital."
+        </p>
+    </div>
+
+    <div class="neo-card" style="background: #1e293b; color: white; padding: 6rem 4rem; text-align: center; margin-bottom: 2rem;">
+         <h2 style="color: white; margin-bottom: 1.5rem; font-size: 3rem; font-weight: 800;">Ready to Transform Your Business?</h2>
+         <p style="color: rgba(255, 255, 255, 0.6); font-size: 1.25rem; margin-bottom: 3rem;">Join companies scaling their operations with TechFlow.</p>
+         <a asp-area="Identity" asp-page="/Account/Login" class="neo-btn btn-gradient-green" style="height: 72px; padding: 0 4rem; font-size: 1.25rem;">
+            Book a Demo
+         </a>
+    </div>
+}
+

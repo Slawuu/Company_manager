@@ -1,0 +1,140 @@
+@model Projekt.Models.EditEmployeeViewModel
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<div class="neo-card" style="max-width: 900px; margin: 0 auto; padding: 4rem;">
+    <h1 style="margin-bottom: 3rem;">
+        Edit Employee
+    </h1>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UserId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div class="neo-form-group">
+                <label asp-for="FirstName" class="neo-form-label"></label>
+                <input asp-for="FirstName" class="neo-input" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="neo-form-group">
+                <label asp-for="LastName" class="neo-form-label"></label>
+                <input asp-for="LastName" class="neo-input" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div class="neo-form-group">
+                <label asp-for="Email" class="neo-form-label"></label>
+                <input asp-for="Email" class="neo-input" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="neo-form-group">
+                <label asp-for="PhoneNumber" class="neo-form-label"></label>
+                <input asp-for="PhoneNumber" class="neo-input" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div class="neo-form-group">
+                <label asp-for="Position" class="neo-form-label"></label>
+                <input asp-for="Position" class="neo-input" />
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+
+            <div class="neo-form-group">
+                <label asp-for="DepartmentId" class="neo-form-label">Department</label>
+                <select asp-for="DepartmentId" class="neo-input" asp-items="ViewBag.DepartmentId">
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem;">
+            <div class="neo-form-group">
+                <label asp-for="HireDate" class="neo-form-label"></label>
+                <input asp-for="HireDate" class="neo-input" type="date" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+
+            <div class="neo-form-group">
+                <label asp-for="Salary" class="neo-form-label"></label>
+                <input asp-for="Salary" asp-format="{0:0.##}" class="neo-input" type="number" step="0.01" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.UserId))
+        {
+            <div style="background: #F8FAFC; border-radius: 24px; padding: 2.5rem; margin-bottom: 4rem; border: 1px solid #E2E8F0;">
+                <h3 style="margin-bottom: 2rem; font-size: 1.25rem;">
+                    Security & Access
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="neo-form-group">
+                        <label asp-for="Role" class="neo-form-label">System Role</label>
+                        <select asp-for="Role" class="neo-input" style="background: #FFFFFF;" asp-items="ViewBag.Roles">
+                            <option value="">-- Keep Current Role --</option>
+                        </select>
+                    </div>
+
+                    <div class="neo-form-group">
+                        <label asp-for="Password" class="neo-form-label">Update Password</label>
+                        <div class="password-container">
+                            <input asp-for="Password" class="neo-input" type="password" style="background: #FFFFFF;" placeholder="Leave blank to keep current" id="passwordInput" />
+                            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('passwordInput', this)">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div style="background: rgba(239, 68, 68, 0.05); border-radius: 16px; padding: 1.5rem; margin-bottom: 4rem; border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444;">
+                <p style="margin: 0; font-weight: 700;">
+                    <i class="bi bi-exclamation-triangle-fill"></i> This employee has no user account. They cannot log in to the system.
+                </p>
+            </div>
+        }
+
+        <div style="display: flex; gap: 1.5rem; margin-top: 2rem;">
+            <button type="submit" class="neo-btn" style="flex: 2; height: 64px; font-size: 1.1rem;">
+                Save Changes
+            </button>
+            <a asp-action="Index" class="neo-btn neo-btn-danger" style="flex: 1; height: 64px; font-size: 1.1rem;">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-fill");
+                icon.classList.add("bi-eye-slash-fill");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye-slash-fill");
+                icon.classList.add("bi-eye-fill");
+            }
+        }
+    </script>
+}
