@@ -10,7 +10,7 @@
         <i class="bi bi-calendar-range"></i> Employees Hired in Period
     </h1>
 
-    <form method="get" class="neo-card" style="background: var(--neo-blue); margin-bottom: 2rem;">
+    <form method="get" class="neo-card" style="background: #f8fafc; margin-bottom: 2rem; border: 1px solid rgba(0,0,0,0.05);">
         <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end;">
             <div class="neo-form-group" style="margin: 0;">
                 <label class="neo-form-label">Start Date</label>
@@ -28,8 +28,8 @@
 
     @if (startDate.HasValue || endDate.HasValue)
     {
-        <div style="background: var(--neo-green); padding: 1rem; border: 4px solid var(--neo-black); box-shadow: 4px 4px 0px var(--neo-black); margin-bottom: 2rem;">
-            <p style="font-weight: 900; margin: 0;">
+        <div class="neo-card neo-card-success" style="margin-bottom: 2rem; padding: 1.5rem;">
+            <p style="font-weight: 800; margin: 0;">
                 <i class="bi bi-info-circle-fill"></i> 
                 Showing employees hired 
                 @if (startDate.HasValue && endDate.HasValue)
@@ -64,11 +64,11 @@
                 @foreach (var employee in Model)
                 {
                     <tr>
-                        <td style="font-weight: 700;">@employee.FirstName @employee.LastName</td>
-                        <td>@(employee.Department?.Name ?? "Pending Assignment")</td>
-                        <td>@employee.Position</td>
-                        <td>@employee.Email</td>
-                        <td>@employee.HireDate.ToString("yyyy-MM-dd")</td>
+                        <td data-label="Name" style="font-weight: 700;">@employee.FirstName @employee.LastName</td>
+                        <td data-label="Department">@(employee.Department?.Name ?? "Pending Assignment")</td>
+                        <td data-label="Position">@employee.Position</td>
+                        <td data-label="Email">@employee.Email</td>
+                        <td data-label="Hire Date">@employee.HireDate.ToString("yyyy-MM-dd")</td>
                     </tr>
                 }
             </tbody>

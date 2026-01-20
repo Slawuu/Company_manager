@@ -5,8 +5,8 @@
 
 <div class="neo-card" style="max-width: 900px; margin: 0 auto;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-        <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin: 0;">
-            <i class="bi bi-info-circle-fill"></i> @Model.Name
+        <h1 style="font-size: 2rem; font-weight: 800; text-transform: uppercase; margin: 0; color: var(--color-primary);">
+            <i class="bi bi-kanban-fill"></i> @Model.Name
         </h1>
         @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
         {
@@ -21,59 +21,63 @@
         }
     </div>
 
-    <div style="background: var(--neo-blue); padding: 2rem; border: 4px solid var(--neo-black); box-shadow: 4px 4px 0px var(--neo-black); margin-bottom: 2rem;">
+    <div class="neo-inset" style="padding: 2rem; margin-bottom: 2rem;">
         <div style="margin-bottom: 1.5rem;">
-            <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem;">Description</h3>
-            <p style="font-weight: 700; margin: 0;">@(Model.Description ?? "No description provided")</p>
+            <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--color-text-muted);">Description</h3>
+            <p style="font-weight: 500; margin: 0; line-height: 1.6;">@(Model.Description ?? "No description provided")</p>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
             <div>
-                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem;">Start Date</h3>
-                <p style="font-weight: 700; margin: 0;">@Model.StartDate.ToString("MMMM dd, yyyy")</p>
+                <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--color-text-muted);">Start Date</h3>
+                <p style="font-weight: 600; margin: 0;">@Model.StartDate.ToString("MMMM dd, yyyy")</p>
             </div>
             <div>
-                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem;">End Date</h3>
-                <p style="font-weight: 700; margin: 0;">
+                <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--color-text-muted);">End Date</h3>
+                <p style="font-weight: 600; margin: 0;">
                     @if (Model.EndDate.HasValue)
                     {
                         @Model.EndDate.Value.ToString("MMMM dd, yyyy")
                     }
                     else
                     {
-                        <span>Ongoing</span>
+                        <span class="text-status-green">Ongoing</span>
                     }
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="neo-card" style="background: var(--neo-green); margin-bottom: 2rem;">
-        <h2 style="font-size: 1.75rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1.5rem;">
+    <div class="neo-card" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: var(--color-primary);">
             <i class="bi bi-people-fill"></i> Team Members (@Model.EmployeeProjects.Count)
         </h2>
 
         @if (Model.EmployeeProjects.Any())
         {
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
                 @foreach (var ep in Model.EmployeeProjects)
                 {
-                    <div style="background: var(--neo-white); padding: 1rem; border: 3px solid var(--neo-black); box-shadow: 3px 3px 0px var(--neo-black); text-align: center;">
-                        <i class="bi bi-person-circle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-                        <p style="font-weight: 900; margin: 0;">@ep.Employee.FirstName @ep.Employee.LastName</p>
-                        <p style="font-size: 0.85rem; font-weight: 700; margin: 0; color: #666;">@ep.Employee.Position</p>
+                    <div class="neo-card" style="padding: 1.5rem; text-align: center; margin-bottom: 0;">
+                        <div style="width: 60px; height: 60px; background: var(--neo-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: var(--neo-shadow-flat);">
+                            <i class="bi bi-person-fill" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+                        </div>
+                        <p style="font-weight: 700; margin: 0 0 0.25rem;">@ep.Employee.FirstName @ep.Employee.LastName</p>
+                        <p style="font-size: 0.85rem; font-weight: 600; margin: 0; color: var(--color-text-muted);">@ep.Employee.Position</p>
                     </div>
                 }
             </div>
         }
         else
         {
-            <p style="font-weight: 700; text-align: center; padding: 2rem;">No team members assigned yet.</p>
+            <div class="neo-inset" style="padding: 2rem; text-align: center;">
+                 <p style="font-weight: 600; color: var(--color-text-muted); margin: 0;">No team members assigned yet.</p>
+            </div>
         }
     </div>
 
     <div>
-        <a asp-action="Index" class="neo-btn" style="background: var(--neo-white);">
+        <a asp-action="Index" class="neo-btn">
             <i class="bi bi-arrow-left"></i> Back to Projects
         </a>
     </div>

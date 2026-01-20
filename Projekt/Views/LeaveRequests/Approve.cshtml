@@ -4,17 +4,38 @@
 }
 
 <div class="neo-card" style="max-width: 700px; margin: 0 auto;">
-    <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 2rem;">
-        <i class="bi bi-clipboard-check-fill"></i> Review Leave Request
+    <h1 style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin-bottom: 2rem; text-align: center;">
+        <i class="bi bi-clipboard-check-fill"></i> Review Request
     </h1>
 
-    <div style="background: var(--neo-blue); padding: 2rem; border: 4px solid var(--neo-black); box-shadow: 4px 4px 0px var(--neo-black); margin-bottom: 2rem;">
-        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Employee:</strong> @Model.Employee.FirstName @Model.Employee.LastName</p>
-        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Leave Type:</strong> @Model.LeaveType</p>
-        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Start Date:</strong> @Model.StartDate.ToString("MMMM dd, yyyy")</p>
-        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>End Date:</strong> @Model.EndDate.ToString("MMMM dd, yyyy")</p>
-        <p style="margin-bottom: 0.75rem; font-weight: 700;"><strong>Duration:</strong> @((Model.EndDate - Model.StartDate).Days + 1) days</p>
-        <p style="margin-bottom: 0; font-weight: 700;"><strong>Reason:</strong> @(Model.Reason ?? "No reason provided")</p>
+    <div class="neo-inset" style="padding: 2rem; margin-bottom: 2rem;">
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+            <i class="bi bi-person-badge-fill" style="font-size: 1.5rem; color: var(--color-primary);"></i>
+            <div>
+                <span class="text-muted" style="display: block; font-size: 0.875rem;">Employee</span>
+                <span style="font-weight: 700; font-size: 1.1rem;">@Model.Employee.FirstName @Model.Employee.LastName</span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+            <div>
+                <span class="text-muted" style="display: block; font-size: 0.875rem;">Leave Type</span>
+                <span style="font-weight: 700; color: var(--color-primary);">@Model.LeaveType</span>
+            </div>
+            <div>
+                <span class="text-muted" style="display: block; font-size: 0.875rem;">Duration</span>
+                <span style="font-weight: 700;">@((Model.EndDate - Model.StartDate).Days + 1) days</span>
+            </div>
+            <div>
+                <span class="text-muted" style="display: block; font-size: 0.875rem;">Period</span>
+                <span style="font-weight: 600;">@Model.StartDate.ToString("MMM dd") - @Model.EndDate.ToString("MMM dd, yyyy")</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05);">
+            <span class="text-muted" style="display: block; font-size: 0.875rem; margin-bottom: 0.5rem;">Reason</span>
+            <p style="font-style: italic; color: var(--color-text-main);">"@(Model.Reason ?? "No reason provided")"</p>
+        </div>
     </div>
 
     <form asp-action="Approve" method="post">

@@ -20,7 +20,7 @@ namespace Projekt.Controllers
             _userManager = userManager;
         }
 
-        // GET: LeaveRequests
+
         public async Task<IActionResult> Index()
         {
             IQueryable<LeaveRequest> leaveRequests;
@@ -45,7 +45,7 @@ namespace Projekt.Controllers
             return View(await leaveRequests.OrderByDescending(l => l.RequestDate).ToListAsync());
         }
 
-        // GET: LeaveRequests/Create
+
         public async Task<IActionResult> Create()
         {
             var userId = _userManager.GetUserId(User);
@@ -69,7 +69,7 @@ namespace Projekt.Controllers
             return View();
         }
 
-        // POST: LeaveRequests/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,EmployeeId,StartDate,EndDate,LeaveType,Reason")] LeaveRequest leaveRequest)
@@ -114,7 +114,7 @@ namespace Projekt.Controllers
             return View(leaveRequest);
         }
 
-        // GET: LeaveRequests/Approve/5
+
         [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Approve(int? id)
         {
@@ -135,7 +135,7 @@ namespace Projekt.Controllers
             return View(leaveRequest);
         }
 
-        // POST: LeaveRequests/Approve/5
+
         [HttpPost, ActionName("Approve")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Manager")]
@@ -156,7 +156,7 @@ namespace Projekt.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: LeaveRequests/Reject/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Manager")]
@@ -177,7 +177,7 @@ namespace Projekt.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: LeaveRequests/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -196,7 +196,7 @@ namespace Projekt.Controllers
             return View(leaveRequest);
         }
 
-        // POST: LeaveRequests/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

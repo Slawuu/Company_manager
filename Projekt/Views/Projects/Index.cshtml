@@ -28,16 +28,16 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="font-weight: 700;">@item.Name</td>
-                        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
-                        <td>@(item.EndDate?.ToString("yyyy-MM-dd") ?? "Ongoing")</td>
-                        <td>
+                        <td data-label="Name" style="font-weight: 700;">@item.Name</td>
+                        <td data-label="Start Date">@item.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td data-label="End Date">@(item.EndDate?.ToString("yyyy-MM-dd") ?? "Ongoing")</td>
+                        <td data-label="Team Size">
                             <span class="neo-badge" style="background: var(--neo-purple);">
                                 @item.EmployeeProjects.Count Members
                             </span>
                         </td>
-                        <td>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <td data-label="Actions">
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end;">
                                 <a asp-action="Details" asp-route-id="@item.Id" class="neo-btn neo-btn-info" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
                                     <i class="bi bi-eye"></i> View
                                 </a>

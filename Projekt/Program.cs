@@ -63,71 +63,18 @@ app.MapControllers(); // Enable API Controllers
 app.MapRazorPages();
 
 
+
+
+// Normal Startup - Ensure Roles exist but do not reset data
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    
     string[] roleNames = { "Admin", "HR", "Manager", "Employee" };
     foreach (var roleName in roleNames)
     {
         if (!await roleManager.RoleExistsAsync(roleName))
         {
             await roleManager.CreateAsync(new IdentityRole(roleName));
-        }
-    }
-    
-    var adminEmail = "admin@hrms.com";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
-    {
-        var newAdmin = new IdentityUser
-        {
-            UserName = adminEmail,
-            Email = adminEmail,
-            EmailConfirmed = true
-        };
-        var result = await userManager.CreateAsync(newAdmin, "admin123");
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdmin, "Admin");
-            
-            var adminEmployee = new Projekt.Models.Employee
-            {
-                FirstName = "System",
-                LastName = "Administrator",
-                Email = adminEmail,
-                PhoneNumber = "+1234567890",
-                Position = "System Administrator",
-                HireDate = DateTime.Now,
-                Salary = 0,
-                UserId = newAdmin.Id,
-                DepartmentId = null
-            };
-            context.Employees.Add(adminEmployee);
-            await context.SaveChangesAsync();
-        }
-    }
-    else
-    {
-        var adminEmployee = await context.Employees.FirstOrDefaultAsync(e => e.Email == adminEmail);
-        if (adminEmployee == null)
-        {
-            var newAdminEmployee = new Projekt.Models.Employee
-            {
-                FirstName = "System",
-                LastName = "Administrator",
-                Email = adminEmail,
-                PhoneNumber = "+1234567890",
-                Position = "System Administrator",
-                HireDate = DateTime.Now,
-                Salary = 0,
-                UserId = adminUser.Id,
-                DepartmentId = null
-            };
-            context.Employees.Add(newAdminEmployee);
-            await context.SaveChangesAsync();
         }
     }
 }

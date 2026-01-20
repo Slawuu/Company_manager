@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Projekt</title>
+    <title>@ViewData["Title"] - Nexus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -19,15 +19,15 @@
             <div class="sidebar-header">
                 @if (User.IsInRole("Admin"))
                 {
-                    <h2><i class="bi bi-lightning-charge-fill"></i> Admin Panel</h2>
+                    <h2><i class="bi bi-lightning-charge-fill"></i> Nexus Admin</h2>
                 }
                 else if (User.IsInRole("HR") || User.IsInRole("Manager"))
                 {
-                    <h2><i class="bi bi-person-badge-fill"></i> Staff Panel</h2>
+                    <h2><i class="bi bi-person-badge-fill"></i> Nexus Staff</h2>
                 }
                 else
                 {
-                    <h2><i class="bi bi-person-circle"></i> Employee Panel</h2>
+                    <h2><i class="bi bi-person-circle"></i> Nexus Employee</h2>
                 }
             </div>
             <ul class="sidebar-menu">
@@ -88,26 +88,102 @@
             </ul>
         </aside>
 
-        <button class="admin-sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">
-            <i class="bi bi-list"></i>
-        </button>
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay" id="mobileNav">
+            <div class="mobile-nav-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-size: 1.5rem;">Nexus Menu</h2>
+                <button class="neo-btn" onclick="toggleMobileNav()" style="padding: 0.5rem; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <ul class="mobile-nav-menu">
+                <li class="mobile-nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="mobile-nav-link">
+                        <i class="bi bi-house-fill"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a asp-area="" asp-controller="Profile" asp-action="Index" class="mobile-nav-link">
+                        <i class="bi bi-person-circle"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a asp-area="" asp-controller="Employees" asp-action="Index" class="mobile-nav-link">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Team Directory</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a asp-area="" asp-controller="LeaveRequests" asp-action="Index" class="mobile-nav-link">
+                        <i class="bi bi-calendar-check-fill"></i>
+                        <span>Leave Requests</span>
+                    </a>
+                </li>
+
+                @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Manager"))
+                {
+                    <li class="mobile-nav-item">
+                        <a asp-area="" asp-controller="Departments" asp-action="Index" class="mobile-nav-link">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+                    <li class="mobile-nav-item">
+                        <a asp-area="" asp-controller="Projects" asp-action="Index" class="mobile-nav-link">
+                            <i class="bi bi-kanban-fill"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Manager"))
+                {
+                    <li class="mobile-nav-item">
+                        <a asp-area="" asp-controller="Reports" asp-action="Index" class="mobile-nav-link">
+                            <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="mobile-nav-footer">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                    <button type="submit" class="neo-btn neo-btn-danger" style="width: 100%;">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </div>
     }
 
     <div class="@(User.Identity.IsAuthenticated ? "content-with-sidebar" : "")" id="mainContent">
         <header>
             <nav class="neo-navbar navbar navbar-expand-lg" style="padding: 0.5rem 2rem;">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <div class="container-fluid" style="display: flex; justify-content: space-between; align-items: center;">
+                    <!-- Brand -->
+                    <a class="navbar-brand" href="/" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="bi bi-hexagon-fill" style="color: var(--color-primary);"></i>
+                        <span>NEXUS</span>
+                    </a>
+
+                    <!-- Mobile Toggle (Hamburger) - Visible only on mobile -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button class="nav-toggle-btn d-lg-none" type="button" onclick="toggleMobileNav()">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    }
+
+                    <!-- Desktop Navbar Content -->
                     <div class="collapse navbar-collapse" id="mainNavbar">
                         <ul class="navbar-nav me-auto">
-                            @if (!User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/"><i class="bi bi-house-fill"></i> Home</a>
-                                </li>
-                            }
+                            <!-- Left side nav items if any -->
                         </ul>
                         <partial name="_LoginPartial" />
                     </div>
@@ -122,7 +198,7 @@
 
         <footer class="neo-footer">
             <p style="margin-bottom: 0;">
-                <strong>&copy; 2025 - Projekt</strong>
+                <strong>&copy; 2025 - Nexus</strong>
             </p>
         </footer>
     </div>
@@ -132,21 +208,19 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     
     <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('adminSidebar');
-            const mainContent = document.getElementById('mainContent');
-            sidebar.classList.toggle('show');
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('show');
+            document.body.classList.toggle('no-scroll');
         }
 
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('adminSidebar');
-            const toggle = document.getElementById('sidebarToggle');
-            
-            if (sidebar && toggle && window.innerWidth <= 992) {
-                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
-                    sidebar.classList.remove('show');
-                }
-            }
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const mobileNav = document.getElementById('mobileNav');
+                mobileNav.classList.remove('show');
+                document.body.classList.remove('no-scroll');
+            });
         });
     </script>
     

@@ -1,59 +1,54 @@
-# Company Manager - System Zarządzania Pracownikami
+# Nexus - Human Resource Management System
 
-Kompleksowy system do zarządzania zasobami ludzkimi (HRMS) zbudowany w architekturze ASP.NET MVC.
+Nexus is a robust enterprise-grade application for managing projects, employees, and departments. Built with ASP.NET Core MVC, it features a modern Neumorphic UI design and a comprehensive dashboard for real-time analytics.
 
-## 🚀 Instalacja i Uruchomienie
+## Features
 
-### Wymagania systemowe
-- .NET 8.0 SDK lub nowszy
-- SQL Server (LocalDB w wersji mssqllocaldb)
-- Visual Studio 2022 lub VS Code
+*   **Employee Management**: Track employment details, roles, and assignments.
+*   **Project Hub**: Manage project lifecycles, assign teams, and monitor progress.
+*   **Leave Requests**: Automated approval workflow for vacation and sick leave.
+*   **Departments**: Organize company structure effectively.
+*   **Analytics**: Real-time reporting and meaningful insights.
+*   **Authentication & Security**: Role-based access control (RBAC) securely managed via ASP.NET Identity.
 
-### Kroki instalacji
-1. Sklonuj repozytorium: `git clone https://github.com/Slawuu/Company_manager.git`
-2. Otwórz projekt w Visual Studio lub folder w VS Code.
-3. Przywróć pakiety NuGet: `dotnet restore`
-4. Uruchom migracje bazy danych (jeśli nie zostały wykonane automatycznie): `dotnet ef database update`
-5. Uruchom aplikację: `dotnet run` (lub F5 w Visual Studio).
+## Getting Started
 
-## ⚙️ Konfiguracja
+### Prerequisites
 
-### Connection String
-Połączenie z bazą danych skonfigurowane jest w pliku `appsettings.json`. Domyślnie korzysta z lokalnej bazy Microsoft SQL Server:
-```json
-"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ProjektDB;Trusted_Connection=True;MultipleActiveResultSets=true"
-```
+*   [.NET 8.0 SDK](https://dotnet.microsoft.com/download)
+*   SQL Server (LocalDB or full instance)
 
-### Testowi Użytkownicy
-Aplikacja posiada system automatycznego seedowania danych. Przy pierwszym uruchomieniu tworzone są role oraz konto administratora:
-- **Login:** `admin@hrms.com`
-- **Hasło:** `admin123`
+### Installation
 
-Inne dostępne role w systemie: `HR`, `Manager`, `Employee`.
+1.  Clone the repository.
+2.  Update the connection string in `appsettings.json` if necessary.
+3.  Apply usage migrations:
+    ```bash
+    dotnet ef database update
+    ```
+4.  Run the application:
+    ```bash
+    dotnet run
+    ```
 
-## 🛠 Opis Działania Aplikacji
 
-### Perspektywa Administratora / HR
-- **Zarządzanie Pracownikami:** Pełny CRUD (dodawanie nowych osób, edycja danych, przypisywanie ról).
-- **Struktura Organizacyjna:** Tworzenie i edycja działów (Departments).
-- **Projekty:** Przypisywanie pracowników do projektów (relacja wiele-do-wielu).
-- **Zatwierdzanie urlopów:** Przeglądanie wniosków wysłanych przez pracowników i ich akceptacja/odrzucenie.
 
-### Perspektywa Pracownika (Użytkownik Zwykły)
-- **Profil:** Podgląd własnych danych i edycja podstawowych informacji.
-- **Lista Pracowników:** Przeglądanie współpracowników w obrębie danego działu.
-- **Wnioski urlopowe:** Składanie wniosków o urlop (status: oczekujący).
-- **Projekty:** Podgląd przypisanych projektów.
+## Credentials
 
-## 📡 API CRUD
-System udostępnia endpointy API dla encji Employee pod adresem: 
-`https://localhost:[port]/api/employees`
+The following accounts are available for testing:
 
-Obsługiwane metody:
-- `GET` - Lista pracowników (wymaga logowania)
-- `POST` - Dodanie nowego pracownika
-- `PUT` - Edycja danych
-- `DELETE` - Usuwanie pracownika
+*   **Administrator Access**:
+    *   **Email**: `admin@company.com`
+    *   **Password**: `Password1234!`
+*   **Standard User**:
+    *   **Email**: `john.doe@company.com`
+    *   **Password**: `Password1234!`
 
----
-*Projekt przygotowany w ramach zaliczenia przedmiotu Programowanie baz danych / ASP.NET MVC.*
+## Architecture
+
+The project follows the Model-View-Controller (MVC) architectural pattern:
+
+*   **Controllers**: Handle user input and interact with the model.
+*   **Models**: Represent the data and business logic (Entity Framework Core entities).
+*   **Views**: Render the user interface using Razor syntax.
+*   **Data**: `ApplicationDbContext` manages database interactions.

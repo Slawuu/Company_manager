@@ -27,15 +27,15 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="font-weight: 700;">@item.Name</td>
-                        <td>@(item.Description ?? "N/A")</td>
-                        <td>
+                        <td data-label="Name" style="font-weight: 700;">@item.Name</td>
+                        <td data-label="Description">@(item.Description ?? "N/A")</td>
+                        <td data-label="Employees">
                             <span class="neo-badge" style="background: var(--neo-green);">
                                 @item.Employees.Count Employees
                             </span>
                         </td>
-                        <td>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <td data-label="Actions">
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end;">
                                 <a asp-action="Details" asp-route-id="@item.Id" class="neo-btn neo-btn-info" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
                                     <i class="bi bi-eye"></i> View
                                 </a>

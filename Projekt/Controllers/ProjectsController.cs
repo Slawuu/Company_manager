@@ -17,7 +17,7 @@ namespace Projekt.Controllers
             _context = context;
         }
 
-        // GET: Projects
+
         public async Task<IActionResult> Index()
         {
             var projects = await _context.Projects
@@ -26,7 +26,7 @@ namespace Projekt.Controllers
             return View(projects);
         }
 
-        // GET: Projects/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,13 +47,13 @@ namespace Projekt.Controllers
             return View(project);
         }
 
-        // GET: Projects/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Projects/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate,ManagerId")] Project project)
@@ -67,7 +67,7 @@ namespace Projekt.Controllers
             return View(project);
         }
 
-        // GET: Projects/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace Projekt.Controllers
             return View(project);
         }
 
-        // POST: Projects/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate,ManagerId")] Project project)
@@ -116,7 +116,7 @@ namespace Projekt.Controllers
             return View(project);
         }
 
-        // GET: Projects/AssignEmployees/5
+
         public async Task<IActionResult> AssignEmployees(int? id)
         {
             if (id == null)
@@ -142,7 +142,7 @@ namespace Projekt.Controllers
             return View(project);
         }
 
-        // POST: Projects/AssignEmployee
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignEmployee(int projectId, int employeeId)
@@ -160,7 +160,7 @@ namespace Projekt.Controllers
             return RedirectToAction(nameof(AssignEmployees), new { id = projectId });
         }
 
-        // POST: Projects/RemoveEmployee
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveEmployee(int projectId, int employeeId)
@@ -177,7 +177,7 @@ namespace Projekt.Controllers
             return RedirectToAction(nameof(AssignEmployees), new { id = projectId });
         }
 
-        // GET: Projects/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -196,7 +196,7 @@ namespace Projekt.Controllers
             return View(project);
         }
 
-        // POST: Projects/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

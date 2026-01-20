@@ -13,29 +13,28 @@
         </a>
     </div>
 
-    <div style="background: var(--neo-purple); padding: 2rem; border: 4px solid var(--neo-black); box-shadow: 4px 4px 0px var(--neo-black); margin-bottom: 2rem;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-            <div>
-                <p style="font-size: 3rem; font-weight: 900; margin: 0;">@Model.Count()</p>
-                <p style="font-weight: 900; text-transform: uppercase; margin: 0;">Total Projects</p>
-            </div>
-            <div>
-                <p style="font-size: 3rem; font-weight: 900; margin: 0;">@Model.Count(p => !p.EndDate.HasValue || p.EndDate > DateTime.Now)</p>
-                <p style="font-weight: 900; text-transform: uppercase; margin: 0;">Active Projects</p>
-            </div>
-            <div>
-                <p style="font-size: 3rem; font-weight: 900; margin: 0;">@Model.Sum(p => p.EmployeeProjects.Count)</p>
-                <p style="font-weight: 900; text-transform: uppercase; margin: 0;">Total Assignments</p>
-            </div>
+    <!-- Stats Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+        <div class="neo-stat-card">
+            <p class="stat-number text-status-orange">@Model.Count()</p>
+            <p class="stat-label text-status-orange">Total Projects</p>
+        </div>
+        <div class="neo-stat-card">
+            <p class="stat-number text-status-blue">@Model.Count(p => !p.EndDate.HasValue || p.EndDate > DateTime.Now)</p>
+            <p class="stat-label text-status-blue">Active Projects</p>
+        </div>
+        <div class="neo-stat-card">
+            <p class="stat-number text-status-green">@Model.Sum(p => p.EmployeeProjects.Count)</p>
+            <p class="stat-label text-status-green">Total Assignments</p>
         </div>
     </div>
 
     @foreach (var project in Model)
     {
-        <div class="neo-card neo-hover-lift" style="background: var(--neo-blue); margin-bottom: 1.5rem;">
+        <div class="neo-card" style="margin-bottom: 1.5rem; background: var(--bg-card); box-shadow: var(--shadow-card);">
             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
                 <div>
-                    <h2 style="font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem;">
+                    <h2 style="font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--color-primary);">
                         <i class="bi bi-folder-fill"></i> @project.Name
                     </h2>
                     <p style="font-weight: 700; margin: 0;">@(project.Description ?? "No description")</p>
@@ -66,12 +65,12 @@
 
             @if (project.EmployeeProjects.Any())
             {
-                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 3px solid var(--neo-black);">
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.1);">
                     <p style="font-weight: 900; margin-bottom: 0.5rem;">Team:</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                         @foreach (var ep in project.EmployeeProjects)
                         {
-                            <span class="neo-badge" style="background: var(--neo-white);">
+                            <span class="neo-badge" style="background: var(--bg-body); color: var(--color-text-main); border: 1px solid rgba(0,0,0,0.1);">
                                 <i class="bi bi-person"></i> @ep.Employee.FirstName @ep.Employee.LastName
                             </span>
                         }

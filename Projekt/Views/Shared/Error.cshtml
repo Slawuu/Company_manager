@@ -3,20 +3,21 @@
     ViewData["Title"] = "Error";
 }
 
-<div class="neo-card" style="background: var(--neo-red); color: var(--neo-white); text-align: center; max-width: 800px; margin: 0 auto;">
-    <h1 style="font-size: 4rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem;">
-        <i class="bi bi-exclamation-triangle-fill"></i><br />
+<div class="neo-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: 3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1rem;">
+        <i class="bi bi-exclamation-triangle-fill" style="color: var(--neo-red);"></i><br />
         Oops!
     </h1>
-    <h2 style="font-weight: 900; text-transform: uppercase; margin-bottom: 2rem; font-size: 1.5rem;">
+    <h2 style="font-weight: 700; text-transform: uppercase; margin-bottom: 2rem; font-size: 1.5rem; color: var(--color-text-main);">
         An error occurred while processing your request
     </h2>
 
     @if (Model.ShowRequestId)
     {
-        <div style="background: var(--neo-white); color: var(--neo-black); padding: 1rem; border: 4px solid var(--neo-black); margin: 2rem 0;">
-            <p style="margin: 0; font-weight: 700;">
-                <strong>Request ID:</strong> <code style="background: var(--neo-yellow); padding: 0.25rem 0.5rem; border: 2px solid var(--neo-black);">@Model.RequestId</code>
+        <div class="neo-inset" style="padding: 1.5rem; margin: 2rem 0; text-align: left;">
+            <p style="margin: 0; font-weight: 600;">
+                <span class="text-muted">Request ID:</span> 
+                <code style="font-size: 1.1rem; color: var(--color-primary); margin-left: 0.5rem;">@Model.RequestId</code>
             </p>
         </div>
     }

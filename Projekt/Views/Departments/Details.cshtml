@@ -5,22 +5,22 @@
 
 <div class="neo-card" style="max-width: 900px; margin: 0 auto;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h1 style="font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin: 0;">
+        <h1 style="font-size: 2rem; font-weight: 800; text-transform: uppercase; margin: 0; color: var(--color-primary);">
             <i class="bi bi-building"></i> @Model.Name
         </h1>
-        <a asp-action="Index" class="neo-btn" style="background: var(--neo-white);">
+        <a asp-action="Index" class="neo-btn">
             <i class="bi bi-arrow-left"></i> Back
         </a>
     </div>
 
-    <div style="background: var(--neo-blue); padding: 2rem; border: 4px solid var(--neo-black); box-shadow: 6px 6px 0px var(--neo-black); margin-bottom: 2rem;">
-        <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 1rem;">Description</h3>
-        <p style="margin: 0; font-weight: 700;">@(Model.Description ?? "No description provided.")</p>
+    <div class="neo-inset" style="padding: 2rem; margin-bottom: 2rem;">
+        <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; color: var(--color-text-muted); font-size: 0.9rem;">Description</h3>
+        <p style="margin: 0; font-weight: 500; font-size: 1.1rem;">@(Model.Description ?? "No description provided.")</p>
     </div>
 
     @if (Model.Employees.Any())
     {
-        <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; font-size: 1.5rem;">
+        <h3 style="font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; font-size: 1.5rem; color: var(--color-primary);">
             <i class="bi bi-people-fill"></i> Employees (@Model.Employees.Count)
         </h3>
         <div style="overflow-x: auto;">
@@ -37,10 +37,10 @@
                     @foreach (var emp in Model.Employees)
                     {
                         <tr>
-                            <td style="font-weight: 700;">@emp.FirstName @emp.LastName</td>
-                            <td>@emp.Position</td>
-                            <td>@emp.Email</td>
-                            <td>@emp.HireDate.ToString("yyyy-MM-dd")</td>
+                            <td data-label="Name" style="font-weight: 700;">@emp.FirstName @emp.LastName</td>
+                            <td data-label="Position">@emp.Position</td>
+                            <td data-label="Email">@emp.Email</td>
+                            <td data-label="Hire Date">@emp.HireDate.ToString("yyyy-MM-dd")</td>
                         </tr>
                     }
                 </tbody>
@@ -49,15 +49,15 @@
     }
     else
     {
-        <div style="background: var(--neo-yellow); padding: 2rem; border: 4px solid var(--neo-black); text-align: center;">
-            <p style="margin: 0; font-weight: 900; font-size: 1.25rem;">
+        <div class="neo-inset" style="padding: 2rem; text-align: center;">
+            <p style="margin: 0; font-weight: 600; font-size: 1.1rem; color: var(--color-text-muted);">
                 <i class="bi bi-info-circle-fill"></i> No employees in this department yet.
             </p>
         </div>
     }
 
     <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="neo-btn" style="background: var(--neo-yellow);">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="neo-btn neo-btn-primary">
             <i class="bi bi-pencil-fill"></i> Edit
         </a>
         <a asp-action="Delete" asp-route-id="@Model.Id" class="neo-btn neo-btn-danger">

@@ -15,8 +15,8 @@
 
     @foreach (var group in Model)
     {
-        <div class="neo-card neo-hover-lift" style="background: var(--neo-yellow); margin-bottom: 2rem;">
-            <h2 style="font-size: 1.75rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1.5rem;">
+        <div class="neo-card neo-card-warning" style="margin-bottom: 2rem;">
+            <h2 style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem;">
                 <i class="bi bi-folder-fill"></i> @group.Key (@group.Count() employees)
             </h2>
 
@@ -34,10 +34,10 @@
                         @foreach (var employee in group)
                         {
                             <tr>
-                                <td style="font-weight: 700;">@employee.FirstName @employee.LastName</td>
-                                <td>@employee.Email</td>
-                                <td>@employee.Position</td>
-                                <td>@employee.HireDate.ToString("yyyy-MM-dd")</td>
+                                <td data-label="Name" style="font-weight: 700;">@employee.FirstName @employee.LastName</td>
+                                <td data-label="Email">@employee.Email</td>
+                                <td data-label="Position">@employee.Position</td>
+                                <td data-label="Hire Date">@employee.HireDate.ToString("yyyy-MM-dd")</td>
                             </tr>
                         }
                     </tbody>

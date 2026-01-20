@@ -19,13 +19,13 @@ namespace Projekt.Controllers
             _userManager = userManager;
         }
 
-        // GET: Reports
+
         public IActionResult Index()
         {
             return View();
         }
 
-        // GET: Reports/EmployeesByDepartment
+
         [Authorize(Roles = "Admin,HR,Manager")]
         public async Task<IActionResult> EmployeesByDepartment()
         {
@@ -41,7 +41,7 @@ namespace Projekt.Controllers
             return View(grouped);
         }
 
-        // GET: Reports/HiredInPeriod
+
         [Authorize(Roles = "Admin,HR,Manager")]
         public async Task<IActionResult> HiredInPeriod(DateTime? startDate, DateTime? endDate)
         {
@@ -73,7 +73,7 @@ namespace Projekt.Controllers
             return View(employees);
         }
 
-        // GET: Reports/ProjectsSummary
+
         [Authorize(Roles = "Admin,HR,Manager")]
         public async Task<IActionResult> ProjectsSummary()
         {
@@ -85,7 +85,7 @@ namespace Projekt.Controllers
             return View(projects);
         }
 
-        // GET: Reports/LeaveRequestsSummary
+
         public async Task<IActionResult> LeaveRequestsSummary(int? year)
         {
             if (!year.HasValue)

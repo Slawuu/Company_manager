@@ -124,7 +124,7 @@ namespace Projekt.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Create
+
         [Authorize(Roles = "Admin,HR")]
         public IActionResult Create()
         {
@@ -133,7 +133,7 @@ namespace Projekt.Controllers
             return View();
         }
 
-        // POST: Employees/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,HR")]
@@ -185,7 +185,7 @@ namespace Projekt.Controllers
             return View(model);
         }
 
-        // GET: Employees/Edit/5
+
         [Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -233,7 +233,7 @@ namespace Projekt.Controllers
             return View(model);
         }
 
-        // POST: Employees/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,HR")]
@@ -360,7 +360,7 @@ namespace Projekt.Controllers
             return View(model);
         }
 
-        // GET: Employees/Delete/5
+
         [Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -380,7 +380,7 @@ namespace Projekt.Controllers
             return View(employee);
         }
 
-        // POST: Employees/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,HR")]

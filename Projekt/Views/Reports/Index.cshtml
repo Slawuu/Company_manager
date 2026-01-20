@@ -8,35 +8,43 @@
     </h1>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-        <a asp-action="EmployeesByDepartment" style="text-decoration: none; color: var(--neo-black);">
-            <div class="neo-card neo-hover-lift" style="background: var(--neo-yellow); text-align: center; cursor: pointer;">
-                <i class="bi bi-building" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
-                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Employees by Department</h3>
-                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">View employee distribution across departments</p>
+        <a asp-action="EmployeesByDepartment" style="text-decoration: none; color: inherit;">
+            <div class="neo-card neo-hover-lift" style="text-align: center; cursor: pointer; height: 100%;">
+                <div style="width: 80px; height: 80px; background: var(--neo-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--neo-shadow-flat);">
+                     <i class="bi bi-building" style="font-size: 2.5rem; color: #f59e0b;"></i>
+                </div>
+                <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--color-text-main); font-size: 1.2rem;">Employees by Department</h3>
+                <p style="font-weight: 500; margin: 0; color: var(--color-text-muted);">View employee distribution across departments</p>
             </div>
         </a>
 
-        <a asp-action="HiredInPeriod" style="text-decoration: none; color: var(--neo-black);">
-            <div class="neo-card neo-hover-lift" style="background: var(--neo-green); text-align: center; cursor: pointer;">
-                <i class="bi bi-calendar-range" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
-                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Hired in Period</h3>
-                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">See employees hired within a date range</p>
+        <a asp-action="HiredInPeriod" style="text-decoration: none; color: inherit;">
+            <div class="neo-card neo-hover-lift" style="text-align: center; cursor: pointer; height: 100%;">
+                <div style="width: 80px; height: 80px; background: var(--neo-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--neo-shadow-flat);">
+                    <i class="bi bi-calendar-range" style="font-size: 2.5rem; color: #10b981;"></i>
+                </div>
+                <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--color-text-main); font-size: 1.2rem;">Hired in Period</h3>
+                <p style="font-weight: 500; margin: 0; color: var(--color-text-muted);">See employees hired within a date range</p>
             </div>
         </a>
 
-        <a asp-action="ProjectsSummary" style="text-decoration: none; color: var(--neo-black);">
-            <div class="neo-card neo-hover-lift" style="background: var(--neo-blue); text-align: center; cursor: pointer;">
-                <i class="bi bi-kanban" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
-                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Projects Summary</h3>
-                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">Overview of all projects and team members</p>
+        <a asp-action="ProjectsSummary" style="text-decoration: none; color: inherit;">
+            <div class="neo-card neo-hover-lift" style="text-align: center; cursor: pointer; height: 100%;">
+                <div style="width: 80px; height: 80px; background: var(--neo-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--neo-shadow-flat);">
+                    <i class="bi bi-kanban" style="font-size: 2.5rem; color: #3b82f6;"></i>
+                </div>
+                <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--color-text-main); font-size: 1.2rem;">Projects Summary</h3>
+                <p style="font-weight: 500; margin: 0; color: var(--color-text-muted);">Overview of all projects and team members</p>
             </div>
         </a>
 
-        <a asp-action="LeaveRequestsSummary" style="text-decoration: none; color: var(--neo-black);">
-            <div class="neo-card neo-hover-lift" style="background: var(--neo-pink); text-align: center; cursor: pointer;">
-                <i class="bi bi-calendar-check" style="font-size: 3rem; margin-bottom: 1rem; color: var(--neo-black);"></i>
-                <h3 style="font-weight: 900; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--neo-black);">Leave Requests</h3>
-                <p style="font-weight: 700; margin: 0; color: var(--neo-black);">Summary of leave requests by status</p>
+        <a asp-action="LeaveRequestsSummary" style="text-decoration: none; color: inherit;">
+            <div class="neo-card neo-hover-lift" style="text-align: center; cursor: pointer; height: 100%;">
+                <div style="width: 80px; height: 80px; background: var(--neo-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: var(--neo-shadow-flat);">
+                    <i class="bi bi-calendar-check" style="font-size: 2.5rem; color: #ec4899;"></i>
+                </div>
+                <h3 style="font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--color-text-main); font-size: 1.2rem;">Leave Requests</h3>
+                <p style="font-weight: 500; margin: 0; color: var(--color-text-muted);">Summary of leave requests by status</p>
             </div>
         </a>
     </div>

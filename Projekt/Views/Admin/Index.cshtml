@@ -26,9 +26,9 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td style="font-weight: 700;">@user.UserId.Substring(0, 8)...</td>
-                        <td>@user.Email</td>
-                        <td>
+                        <td data-label="User ID" style="font-weight: 700;">@user.UserId.Substring(0, 8)...</td>
+                        <td data-label="Email">@user.Email</td>
+                        <td data-label="Role">
                             <span class="neo-badge @(user.Role == "Admin" ? "neo-badge-admin" : "neo-badge-user")">
                                 @user.Role
                             </span>

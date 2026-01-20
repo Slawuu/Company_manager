@@ -19,7 +19,7 @@ namespace Projekt.Controllers
             _userManager = userManager;
         }
 
-        // GET: Profile
+
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
@@ -45,7 +45,7 @@ namespace Projekt.Controllers
             return View(employee);
         }
 
-        // GET: Profile/Edit
+
         public async Task<IActionResult> Edit()
         {
             var userId = _userManager.GetUserId(User);
@@ -70,7 +70,7 @@ namespace Projekt.Controllers
             return View(viewModel);
         }
 
-        // POST: Profile/Edit
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditProfileViewModel model)

@@ -65,7 +65,7 @@
                 </select>
             </div>
             <div style="display: flex; align-items: flex-end;">
-                <button type="submit" class="neo-btn" style="width: 100%; background: #0f172a;">
+                <button type="submit" class="neo-btn neo-btn-primary" style="width: 100%;">
                     <i class="bi bi-search" style="margin-right: 0.5rem; font-size: 1.2rem;"></i> Filter
                 </button>
             </div>
@@ -92,11 +92,11 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="font-weight: 800; color: var(--color-text-main);">@item.Employee.FirstName @item.Employee.LastName</td>
-                        <td>@item.Employee.Email</td>
-                        <td>@item.Employee.Position</td>
-                        <td>@item.Employee.Department?.Name</td>
-                        <td>
+                        <td data-label="Name" style="font-weight: 800; color: var(--color-text-main);">@item.Employee.FirstName @item.Employee.LastName</td>
+                        <td data-label="Email">@item.Employee.Email</td>
+                        <td data-label="Position">@item.Employee.Position</td>
+                        <td data-label="Department">@item.Employee.Department?.Name</td>
+                        <td data-label="System Role">
                             @if (!string.IsNullOrEmpty(item.Role))
                             {
                                 if (item.Role == "Admin")
@@ -105,11 +105,11 @@
                                 }
                                 else if (item.Role == "HR")
                                 {
-                                    <span class="neo-badge" style="background: var(--neo-purple);">@item.Role</span>
+                                    <span class="neo-badge" style="background: transparent; color: #f59e0b; border: 1px solid #f59e0b;">@item.Role</span>
                                 }
                                 else if (item.Role == "Manager")
                                 {
-                                    <span class="neo-badge" style="background: var(--neo-blue);">@item.Role</span>
+                                    <span class="neo-badge" style="background: transparent; color: var(--color-primary); border: 1px solid var(--color-primary);">@item.Role</span>
                                 }
                                 else
                                 {
@@ -121,11 +121,11 @@
                                 <span style="color: var(--color-text-muted); font-size: 0.85rem;">No Account</span>
                             }
                         </td>
-                        <td>@item.Employee.HireDate.ToString("MMM dd, yyyy")</td>
+                        <td data-label="Hire Date">@item.Employee.HireDate.ToString("MMM dd, yyyy")</td>
                         @if (User.IsInRole("Admin") || User.IsInRole("HR") || User.IsInRole("Manager"))
                         {
-                            <td>
-                                <div style="display: flex; gap: 0.75rem;">
+                            <td data-label="Actions">
+                                <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
                                     <a asp-action="Details" asp-route-id="@item.Employee.Id" title="View Details" style="color: var(--color-primary); font-size: 1.5rem;">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>

@@ -41,6 +41,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 html {
@@ -54,6 +56,10 @@ body {
     color: var(--color-text-main);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+}
+
+.no-scroll {
+    overflow: hidden;
 }
 
 /* --- Layout --- */
@@ -682,4 +688,339 @@ a:hover {
     transform: translateY(-2px);
     filter: brightness(1.1);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Mobile Responsiveness & Neumorphism Enhancements --- */
+
+:root {
+    --neo-shadow-flat: 8px 8px 16px #d1d5db, -8px -8px 16px #ffffff;
+    --neo-shadow-inset: inset 6px 6px 12px #d1d5db, inset -6px -6px 12px #ffffff;
+    --neo-bg: #F1F5F9;
+}
+
+/* Ensure touch targets are at least 44px */
+.neo-btn,
+.sidebar-menu-link,
+.nav-link,
+.password-toggle-btn,
+.navbar-toggler {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Mobile Sidebar Toggle (Hamburger in Navbar) */
+.nav-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--neo-bg);
+    color: var(--color-primary);
+    border: none;
+    box-shadow: var(--neo-shadow-flat);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle-btn:active {
+    box-shadow: var(--neo-shadow-inset);
+    transform: scale(0.95);
+}
+
+/* Old floating toggle removal/reset if needed, but keeping clean structure */
+.admin-sidebar-toggle {
+    display: none !important;
+}
+
+/* Mobile Navigation Overlay */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-body);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.mobile-nav-overlay.show {
+    display: flex;
+}
+
+.mobile-nav-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.mobile-nav-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.mobile-nav-item {
+    margin-bottom: 1rem;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem;
+    border-radius: 16px;
+    background: var(--neo-bg);
+    color: var(--color-text-main);
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: var(--neo-shadow-flat);
+    transition: all 0.2s ease;
+}
+
+.mobile-nav-item .mobile-nav-link i {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    color: var(--color-primary);
+}
+
+.mobile-nav-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .container-fluid {
+        padding: 0 1.5rem;
+    }
+
+    .main-content {
+        padding: 6rem 1.5rem 2rem;
+    }
+
+    .neo-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .neo-hero {
+        padding: 4rem 1.5rem;
+    }
+
+    .neo-hero h1 {
+        font-size: 2.25rem;
+    }
+
+    .admin-sidebar {
+        display: none !important;
+    }
+
+    .content-with-sidebar {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Global Mobile Refinements */
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .main-content {
+        padding: 5rem 1rem 2rem;
+    }
+
+    .neo-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .admin-sidebar-toggle {
+        display: flex;
+    }
+
+    .neo-navbar {
+        padding: 1rem 1.5rem;
+    }
+
+    .showcase-grid {
+        gap: 1.5rem;
+    }
+
+    .neo-btn {
+        width: 100%;
+        padding: 14px 24px;
+        margin-bottom: 0.5rem;
+    }
+
+    /* --- CRITICAL: Table-to-Card Transformation --- */
+    .neo-table,
+    .neo-table thead,
+    .neo-table tbody,
+    .neo-table th,
+    .neo-table td,
+    .neo-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .neo-table thead {
+        display: none;
+        /* Hide headers on mobile */
+    }
+
+    .neo-table tbody tr {
+        background: var(--bg-card);
+        border-radius: 16px;
+        box-shadow: var(--shadow-card);
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .neo-table tbody tr td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 0.75rem 0.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 0.9rem;
+        white-space: normal;
+        word-break: break-all;
+    }
+
+    .neo-table tbody tr td:last-child {
+        border-bottom: none;
+    }
+
+    .neo-table tbody tr td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        text-align: left;
+        padding-right: 1rem;
+    }
+
+    /* Ensure action buttons in cards look good */
+    .neo-table td .neo-btn {
+        width: auto;
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+@media (max-width: 992px) {
+    .container-fluid {
+        padding: 0 1.5rem;
+    }
+
+    .main-content {
+        padding: 6rem 1.5rem 2rem;
+    }
+
+    .admin-sidebar {
+        display: none !important;
+    }
+
+    .content-with-sidebar {
+        margin-left: 0 !important;
+    }
+
+    .neo-table-container {
+        overflow-x: auto;
+        margin: 0 -1.5rem;
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar-toggle {
+        display: flex;
+    }
+
+    .neo-navbar {
+        padding: 1rem 1.5rem;
+    }
+
+    .neo-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* --- Readability & Contrast Enhancements --- */
+.text-white {
+    color: #FFFFFF !important;
+}
+
+.text-dark {
+    color: #1e293b !important;
+}
+
+.text-muted-light {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Status Colors for Typography */
+.text-status-orange {
+    color: #f59e0b !important;
+}
+
+.text-status-blue {
+    color: #1d789f !important;
+}
+
+.text-status-green {
+    color: #10b981 !important;
+}
+
+.text-status-red {
+    color: #ef4444 !important;
+}
+
+.neo-stat-card {
+    background: var(--neo-bg);
+    border-radius: 24px;
+    box-shadow: var(--neo-shadow-flat);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.neo-stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }

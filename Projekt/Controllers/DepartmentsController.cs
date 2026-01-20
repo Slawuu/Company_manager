@@ -16,7 +16,7 @@ namespace Projekt.Controllers
             _context = context;
         }
 
-        // GET: Departments
+
         public async Task<IActionResult> Index()
         {
             var departments = await _context.Departments
@@ -25,7 +25,7 @@ namespace Projekt.Controllers
             return View(departments);
         }
 
-        // GET: Departments/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,13 +45,13 @@ namespace Projekt.Controllers
             return View(department);
         }
 
-        // GET: Departments/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Departments/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,ManagerId")] Department department)
@@ -65,7 +65,7 @@ namespace Projekt.Controllers
             return View(department);
         }
 
-        // GET: Departments/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,7 +81,7 @@ namespace Projekt.Controllers
             return View(department);
         }
 
-        // POST: Departments/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ManagerId")] Department department)
@@ -114,7 +114,7 @@ namespace Projekt.Controllers
             return View(department);
         }
 
-        // GET: Departments/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +133,7 @@ namespace Projekt.Controllers
             return View(department);
         }
 
-        // POST: Departments/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
