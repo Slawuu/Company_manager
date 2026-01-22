@@ -68,13 +68,23 @@ app.MapRazorPages();
 // Normal Startup - Ensure Roles exist but do not reset data
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roleNames = { "Admin", "HR", "Manager", "Employee" };
-    foreach (var roleName in roleNames)
+    // Seed Database only if --seed argument is passed
+    if (args.Contains("--seed"))
     {
-        if (!await roleManager.RoleExistsAsync(roleName))
+        try
         {
-            await roleManager.CreateAsync(new IdentityRole(roleName));
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            
+            await DbInitializer.Initialize(context, userManager, roleManager);
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Database seeded successfully.");
+        }
+        catch (Exception ex)
+        {
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred while seeding the database.");
         }
     }
 }
